@@ -1,0 +1,107 @@
+{
+  "provenance": "Recorded board terminal JSON supplied by the user; not a rerun. Local home prefixes normalized.",
+  "measurement_date": "2026-11-03",
+  "report": {
+    "rknn_sha256": "ebf4e0da222236758f347ad9008147723a7efd71cca4c9b2505f40cb6e8b37b8",
+    "torchscript_sha256": "b5d560d01c8ea7135dcb07b0add644742f3bac3003da1d5af6ab14c720b83393",
+    "samples": [
+      {
+        "path": "~/yolox_project/fcm_l37/fcm_bundle/test_l37.npy",
+        "input_sha256": "1eb79c38e0b52cf111a155294c5c40db84121a29c956b0e3219f9edfb4fd6e77",
+        "npu_vs_cpu": {
+          "max_abs": 0.017920494079589844,
+          "mean_abs": 0.0004564601594424084,
+          "relative_l2": 0.001136747274567068,
+          "cosine": 0.9999993921744948
+        },
+        "tiled_quantized_frame": {
+          "changed_fraction": 0.056484375,
+          "max_abs": 1.0
+        }
+      },
+      {
+        "path": "~/yolox_project/darknet53/zidane_dark3_sample/zidane_dark3_npu.npy",
+        "input_sha256": "52321d967a726ee16a47c93fa5e65b8aa8d720bc0310fde742fc0827f7b5c63e",
+        "npu_vs_cpu": {
+          "max_abs": 0.01812744140625,
+          "mean_abs": 0.00038876134650472053,
+          "relative_l2": 0.001173531883386448,
+          "cosine": 0.999999363035004
+        },
+        "tiled_quantized_frame": {
+          "changed_fraction": 0.4270361328125,
+          "max_abs": 2.0
+        }
+      },
+      {
+        "path": "~/yolox_project/darknet53/live_fcm_runs/20261103-155444-451889/last_dark3.npy",
+        "input_sha256": "307095329b2f06afb01aad9f03dfd6d1fa169c96af3bea784a46e54369ff96e1",
+        "npu_vs_cpu": {
+          "max_abs": 0.013121604919433594,
+          "mean_abs": 0.0003058460325827936,
+          "relative_l2": 0.0012691211004678706,
+          "cosine": 0.9999992447236885
+        },
+        "tiled_quantized_frame": {
+          "changed_fraction": 0.18208984375,
+          "max_abs": 1.0
+        }
+      }
+    ],
+    "timing_ms": {
+      "cpu": {
+        "median": 540.815542000928,
+        "p95": 565.9050228965498,
+        "raw_ms": [
+          521.7996470018988,
+          565.4960999963805,
+          550.4971900008968,
+          524.8696970011224,
+          541.1603760003345,
+          533.9323160005733,
+          528.8004489993909,
+          547.2999179983162,
+          531.6666309954599,
+          519.9177589965984,
+          573.674557999766,
+          531.3810099978582,
+          561.5085910030757,
+          536.1401020054473,
+          541.9614440033911,
+          563.2868539978517,
+          544.7692909947364,
+          533.8849170002504,
+          561.7246670008171,
+          540.4707080015214
+        ]
+      },
+      "npu": {
+        "median": 113.93068500547088,
+        "p95": 114.50598124538374,
+        "raw_ms": [
+          114.07360199518735,
+          113.9324360046885,
+          113.89568600134226,
+          113.87789400032489,
+          113.97676899650833,
+          113.92893400625326,
+          114.03422400326235,
+          113.91785000159871,
+          113.98697499680566,
+          113.97005800245097,
+          114.07359900476877,
+          113.99980600253912,
+          113.92513800092274,
+          113.93651300022611,
+          122.72118699911516,
+          111.40573100419715,
+          111.43723200075328,
+          111.39785700652283,
+          111.41477299679536,
+          111.36664799414575
+        ]
+      }
+    },
+    "note": "FENet only; NPU API includes input/output transfer. Non-INT8 build, not FP32 equivalence. No live pipeline/HM/decode/mAP acceptance."
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "provenance": "User-supplied fixed-input board terminal JSON, CPU/NPU alternating, combined4 QP20. Not a new run.",
+  "measurement_date": "2026-11-03",
+  "samples": [
+    {
+      "source": "~/yolox_project/fcm_l37/fcm_bundle/test_l37.npy",
+      "input_sha256": "1eb79c38e0b52cf111a155294c5c40db84121a29c956b0e3219f9edfb4fd6e77",
+      "latent_npu_vs_cpu": {
+        "max_abs": 0.017920494079589844,
+        "mean_abs": 0.0004564601594424084,
+        "relative_l2": 0.001136747274567068,
+        "cosine": 0.9999993921744948
+      },
+      "paths": {
+        "cpu": {
+          "compress_median_ms": 1289.251479000086,
+          "compress_p95_ms": 1358.5048888024176,
+          "raw_compress_ms": [
+            1284.9241160001839,
+            1289.251479000086,
+            1358.8255560025573,
+            1357.2222200018587,
+            1251.8810589972418
+          ],
+          "payload_bytes": 19141,
+          "decode_ms": 842.9822149992106,
+          "reconstruction_vs_original": {
+            "max_abs": 7.936866760253906,
+            "mean_abs": 0.403384428394533,
+            "relative_l2": 0.3181152486247453,
+            "cosine": 0.9480780373264981
+          }
+        },
+        "npu": {
+          "compress_median_ms": 827.3207490055938,
+          "compress_p95_ms": 845.4515653953422,
+          "raw_compress_ms": [
+            832.5801350001711,
+            777.8199259992107,
+            768.5633479995886,
+            848.669422994135,
+            827.3207490055938
+          ],
+          "payload_bytes": 19128,
+          "decode_ms": 728.6957429969334,
+          "reconstruction_vs_original": {
+            "max_abs": 7.909794807434082,
+            "mean_abs": 0.4034219696153243,
+            "relative_l2": 0.3181279323164643,
+            "cosine": 0.9480762214645847
+          }
+        }
+      },
+      "reconstructed_npu_vs_cpu": {
+        "max_abs": 2.4392778873443604,
+        "mean_abs": 0.10967174191756471,
+        "relative_l2": 0.08935007630782044,
+        "cosine": 0.9960096765629451
+      }
+    },
+    {
+      "source": "~/yolox_project/darknet53/zidane_dark3_sample/zidane_dark3_npu.npy",
+      "input_sha256": "52321d967a726ee16a47c93fa5e65b8aa8d720bc0310fde742fc0827f7b5c63e",
+      "latent_npu_vs_cpu": {
+        "max_abs": 0.01812744140625,
+        "mean_abs": 0.00038876134650472053,
+        "relative_l2": 0.001173531883386448,
+        "cosine": 0.999999363035004
+      },
+      "paths": {
+        "cpu": {
+          "compress_median_ms": 1229.4928359988262,
+          "compress_p95_ms": 1330.6652326049516,
+          "raw_compress_ms": [
+            1229.4928359988262,
+            1216.3314529971103,
+            1347.5168870063499,
+            1225.079548006761,
+            1263.2586149993585
+          ],
+          "payload_bytes": 19804,
+          "decode_ms": 867.6976429997012,
+          "reconstruction_vs_original": {
+            "max_abs": 6.387059211730957,
+            "mean_abs": 0.31483650862758056,
+            "relative_l2": 0.27756447914710747,
+            "cosine": 0.960718107719711
+          }
+        },
+        "npu": {
+          "compress_median_ms": 783.3639239979675,
+          "compress_p95_ms": 853.5013160013477,
+          "raw_compress_ms": [
+            825.4831960002775,
+            779.4974169955822,
+            782.8640570005518,
+            860.5058460016153,
+            783.3639239979675
+          ],
+          "payload_bytes": 19911,
+          "decode_ms": 660.5007960024523,
+          "reconstruction_vs_original": {
+            "max_abs": 6.450719356536865,
+            "mean_abs": 0.31467650137490205,
+            "relative_l2": 0.2775500922293245,
+            "cosine": 0.9607235817624539
+          }
+        }
+      },
+      "reconstructed_npu_vs_cpu": {
+        "max_abs": 2.4723005294799805,
+        "mean_abs": 0.0734378152076119,
+        "relative_l2": 0.0661803072781249,
+        "cosine": 0.9978107398096978
+      }
+    },
+    {
+      "source": "~/yolox_project/darknet53/live_fcm_runs/20261103-155444-451889/last_dark3.npy",
+      "input_sha256": "307095329b2f06afb01aad9f03dfd6d1fa169c96af3bea784a46e54369ff96e1",
+      "latent_npu_vs_cpu": {
+        "max_abs": 0.013121604919433594,
+        "mean_abs": 0.0003058460325827936,
+        "relative_l2": 0.0012691211004678706,
+        "cosine": 0.9999992447236885
+      },
+      "paths": {
+        "cpu": {
+          "compress_median_ms": 1159.236562998558,
+          "compress_p95_ms": 1186.1965299991425,
+          "raw_compress_ms": [
+            1189.798895000422,
+            1159.236562998558,
+            1113.3753249960137,
+            1142.3255420013447,
+            1171.787069994025
+          ],
+          "payload_bytes": 11992,
+          "decode_ms": 640.5080070035183,
+          "reconstruction_vs_original": {
+            "max_abs": 5.107604026794434,
+            "mean_abs": 0.28738944156026364,
+            "relative_l2": 0.24999738863278054,
+            "cosine": 0.9682738697829366
+          }
+        },
+        "npu": {
+          "compress_median_ms": 773.2008259990835,
+          "compress_p95_ms": 793.5140729998238,
+          "raw_compress_ms": [
+            785.2730930026155,
+            773.2008259990835,
+            750.9103869961109,
+            795.5743179991259,
+            772.3581370009924
+          ],
+          "payload_bytes": 11955,
+          "decode_ms": 574.4420639966847,
+          "reconstruction_vs_original": {
+            "max_abs": 5.038319110870361,
+            "mean_abs": 0.2873208975155481,
+            "relative_l2": 0.2500024989142894,
+            "cosine": 0.968272873090728
+          }
+        }
+      },
+      "reconstructed_npu_vs_cpu": {
+        "max_abs": 1.3086943626403809,
+        "mean_abs": 0.07338162036769845,
+        "relative_l2": 0.0658973299886577,
+        "cosine": 0.9978288649186146
+      }
+    }
+  ]
+}

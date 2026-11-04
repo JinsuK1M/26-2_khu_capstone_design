@@ -1,0 +1,207 @@
+{
+  "provenance": "Manually transcribed summary fields from user-supplied board terminal outputs. Original per-frame CSV/raw logs remain on the board and are not included.",
+  "measurement_date": "2026-11-03",
+  "scope": "Selected-frame preprocessing start to payload completion; not sensor exposure, network/server E2E, mAP or power.",
+  "cpu_fenet_fresh_process_median_ms": {
+    "all_cores_4_threads": [
+      500.56,
+      514.81
+    ],
+    "big_cores_4_threads": [
+      524.41,
+      521.4
+    ],
+    "big_cores_1_thread": [
+      843.54,
+      834.3
+    ]
+  },
+  "hm_fixed_input": [
+    {
+      "case": "baseline",
+      "median_ms": 1029.1,
+      "p95_ms": 1040.3,
+      "payload_bytes": 10842,
+      "reconstruction_mse": 0.17119
+    },
+    {
+      "case": "rdoq_off",
+      "median_ms": 803.3,
+      "p95_ms": 812.3,
+      "payload_bytes": 11694,
+      "reconstruction_mse": 0.169984
+    },
+    {
+      "case": "transformskip_off",
+      "median_ms": 875.3,
+      "p95_ms": 882.0,
+      "payload_bytes": 11007,
+      "reconstruction_mse": 0.17146
+    },
+    {
+      "case": "tu_depth1",
+      "median_ms": 943.1,
+      "p95_ms": 947.3,
+      "payload_bytes": 10813,
+      "reconstruction_mse": 0.171029
+    },
+    {
+      "case": "sao_off",
+      "median_ms": 1021.4,
+      "p95_ms": 1046.2,
+      "payload_bytes": 10814,
+      "reconstruction_mse": 0.17109
+    },
+    {
+      "case": "combined3",
+      "median_ms": 637.3,
+      "p95_ms": 715.3,
+      "payload_bytes": 12030,
+      "reconstruction_mse": 0.170191
+    },
+    {
+      "case": "combined4",
+      "median_ms": 623.7,
+      "p95_ms": 647.5,
+      "payload_bytes": 11992,
+      "reconstruction_mse": 0.170156
+    }
+  ],
+  "live_hm": [
+    {
+      "case": "baseline_before",
+      "hm_median_ms": 1032.75146,
+      "fcm_median_ms": 1581.507037,
+      "selected_median_ms": 1680.091575,
+      "selected_p95_ms": 1741.735303,
+      "fps": 0.588794607,
+      "mean_payload_bytes": 12253.657143,
+      "decode_pass": 4,
+      "decode_total": 4
+    },
+    {
+      "case": "combined4",
+      "hm_median_ms": 614.429142,
+      "fcm_median_ms": 1174.736493,
+      "selected_median_ms": 1272.483044,
+      "selected_p95_ms": 1320.225585,
+      "fps": 0.778894045,
+      "mean_payload_bytes": 13435.23913,
+      "decode_pass": 4,
+      "decode_total": 4
+    },
+    {
+      "case": "baseline_after",
+      "hm_median_ms": 1045.78122,
+      "fcm_median_ms": 1594.745469,
+      "selected_median_ms": 1696.348885,
+      "selected_p95_ms": 1749.563124,
+      "fps": 0.580617201,
+      "mean_payload_bytes": 12459.264706,
+      "decode_pass": 4,
+      "decode_total": 4
+    }
+  ],
+  "live_fenet": [
+    {
+      "case": "cpu_before",
+      "processed": 48,
+      "npu_median_ms": 94.269013,
+      "fenet_median_ms": 541.992603,
+      "hm_median_ms": 612.016672,
+      "selected_median_ms": 1263.803808,
+      "selected_p95_ms": 1292.860758,
+      "fps": 0.784356795,
+      "mean_payload_bytes": 13346.255319,
+      "decode_pass": 4,
+      "decode_total": 4
+    },
+    {
+      "case": "npu",
+      "processed": 70,
+      "npu_median_ms": 95.032534,
+      "fenet_median_ms": 113.394754,
+      "hm_median_ms": 612.689879,
+      "selected_median_ms": 834.977794,
+      "selected_p95_ms": 889.235592,
+      "fps": 1.152561258,
+      "mean_payload_bytes": 13371.753623,
+      "decode_pass": 4,
+      "decode_total": 4
+    },
+    {
+      "case": "cpu_after",
+      "processed": 47,
+      "npu_median_ms": 94.471327,
+      "fenet_median_ms": 560.726352,
+      "hm_median_ms": 613.694241,
+      "selected_median_ms": 1279.900007,
+      "selected_p95_ms": 1308.088862,
+      "fps": 0.772786031,
+      "mean_payload_bytes": 13276.065217,
+      "decode_pass": 4,
+      "decode_total": 4
+    }
+  ],
+  "live_pipeline": [
+    {
+      "case": "sequential_before",
+      "processed": 71,
+      "npu_median_ms": 97.001433,
+      "fenet_median_ms": 113.454098,
+      "hm_median_ms": 610.134596,
+      "selected_median_ms": 832.670982,
+      "selected_p95_ms": 880.30752,
+      "queue_median_ms": 0,
+      "queue_p95_ms": 0,
+      "fps": 1.168756923,
+      "unfinished_jobs": 0,
+      "decode_pass": 4,
+      "decode_total": 4
+    },
+    {
+      "case": "pipeline",
+      "processed": 90,
+      "npu_median_ms": 127.691415,
+      "fenet_median_ms": 115.644026,
+      "hm_median_ms": 626.362761,
+      "selected_median_ms": 1295.417599,
+      "selected_p95_ms": 1338.257692,
+      "queue_median_ms": 401.367899,
+      "queue_p95_ms": 443.845686,
+      "fps": 1.49316376,
+      "unfinished_jobs": 1,
+      "decode_pass": 4,
+      "decode_total": 4
+    },
+    {
+      "case": "sequential_after",
+      "processed": 70,
+      "npu_median_ms": 96.908225,
+      "fenet_median_ms": 113.035389,
+      "hm_median_ms": 610.398564,
+      "selected_median_ms": 830.293073,
+      "selected_p95_ms": 888.605284,
+      "queue_median_ms": 0,
+      "queue_p95_ms": 0,
+      "fps": 1.15916879,
+      "unfinished_jobs": 0,
+      "decode_pass": 4,
+      "decode_total": 4
+    }
+  ],
+  "decisions": {
+    "cpu": "unchanged, 4 threads, no taskset",
+    "hm": "combined4 QP20",
+    "fenet": "NPU non-INT8 RKNN",
+    "execution": "sequential, pipeline rejected for per-frame latency"
+  },
+  "pending": [
+    "final default entry point post-deployment smoke run",
+    "10-minute stability",
+    "final FCM detection mAP",
+    "Mac server networking/suffix integration",
+    "network E2E",
+    "energy measurements"
+  ]
+}
