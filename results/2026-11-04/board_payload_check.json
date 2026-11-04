@@ -1,0 +1,22 @@
+{
+  "input": "board last_payload.bin (processed 70, capture_id 878)",
+  "board": {
+    "fenet": "npu",
+    "hm": "combined4",
+    "qp": 20,
+    "selected_process_ms": 828.3,
+    "payload_bytes": 13397
+  },
+  "header_check": "24 + 13373 = 13397 OK",
+  "decode": "success",
+  "server_ms": {
+    "decode": 173,
+    "detect": 204
+  },
+  "conf": 0.05,
+  "original_dets": 6,
+  "board_path_dets": 8,
+  "matched_original": 5,
+  "match_rule": "same class, IoU>=0.5",
+  "note": "Ceiling-dominated frame; original model has no detection above 0.25. Functional check, not accuracy."
+}

@@ -1,0 +1,64 @@
+{
+  "input": "board zidane_dark3_npu.npy (full-backbone RKNN dark3)",
+  "conf": 0.25,
+  "results": {
+    "original": [
+      [
+        "person",
+        0.94
+      ],
+      [
+        "person",
+        0.887
+      ],
+      [
+        "tie",
+        0.79
+      ]
+    ],
+    "npu_dark3_to_server": [
+      [
+        "person",
+        0.94
+      ],
+      [
+        "person",
+        0.887
+      ],
+      [
+        "tie",
+        0.788
+      ]
+    ],
+    "npu_dark3_fcm_qp20_default_18.6KB": [
+      [
+        "person",
+        0.941
+      ],
+      [
+        "person",
+        0.885
+      ],
+      [
+        "tie",
+        0.765
+      ]
+    ],
+    "npu_dark3_fcm_qp20_combined4_19.3KB": [
+      [
+        "person",
+        0.942
+      ],
+      [
+        "person",
+        0.885
+      ],
+      [
+        "tie",
+        0.761
+      ]
+    ]
+  },
+  "preprocess_diff_mac_vs_board_max_pixel": 1,
+  "note": "Single image; not mAP."
+}

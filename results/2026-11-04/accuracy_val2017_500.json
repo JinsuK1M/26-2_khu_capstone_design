@@ -1,0 +1,34 @@
+{
+  "dataset": "COCO val2017 first 500 images",
+  "input": 640,
+  "split": "dark3 (l37)",
+  "fenet": "Mac CPU TorchScript",
+  "hm": "combined4",
+  "results": [
+    {
+      "method": "original",
+      "kb_per_image": null,
+      "mAP50": 0.724,
+      "mAP50_95": 0.532
+    },
+    {
+      "method": "split+uint8",
+      "kb_per_image": 1600.0,
+      "mAP50": 0.724,
+      "mAP50_95": 0.533
+    },
+    {
+      "method": "split+FCM QP20",
+      "kb_per_image": 19.89,
+      "mAP50": 0.718,
+      "mAP50_95": 0.526
+    },
+    {
+      "method": "split+FCM QP25",
+      "kb_per_image": 11.7,
+      "mAP50": 0.716,
+      "mAP50_95": 0.521
+    }
+  ],
+  "note": "Partial evaluation; not comparable to official 5000-image number."
+}

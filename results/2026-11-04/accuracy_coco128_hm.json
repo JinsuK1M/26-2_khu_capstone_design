@@ -1,0 +1,36 @@
+{
+  "dataset": "COCO128",
+  "fenet": "Mac CPU TorchScript",
+  "results": [
+    {
+      "method": "original",
+      "mAP50": 0.825,
+      "mAP50_95": 0.605
+    },
+    {
+      "method": "QP20 default",
+      "kb_per_image": 19.7,
+      "mAP50": 0.81,
+      "mAP50_95": 0.6
+    },
+    {
+      "method": "QP20 combined4",
+      "kb_per_image": 20.64,
+      "mAP50": 0.812,
+      "mAP50_95": 0.598
+    },
+    {
+      "method": "QP25 default",
+      "kb_per_image": 11.49,
+      "mAP50": 0.809,
+      "mAP50_95": 0.593
+    },
+    {
+      "method": "QP25 combined4",
+      "kb_per_image": 12.08,
+      "mAP50": 0.802,
+      "mAP50_95": 0.596
+    }
+  ],
+  "note": "COCO128 may overlap training data; path comparison only."
+}
