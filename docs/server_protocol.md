@@ -20,7 +20,8 @@ JSON 헤더:
 
 | 키 | 예 | 설명 |
 | --- | --- | --- |
-| `mode` | `"fcm"` / `"jpeg"` | payload 종류. 없으면 `fcm: true` 여부로 판단 (예전 호환) |
+| `mode` | `"fcm"` / `"jpeg"` / `"hevc"` | payload 종류. 없으면 `fcm: true` 여부로 판단 (예전 호환) |
+| `reset` | `true` | (hevc) 이 요청부터 HEVC 디코더를 새로 만든다 |
 | `fcm` | `true` | (예전 방식) FCM payload 모드 |
 | `frame_id` | `70` | 결과에 그대로 돌려줌. Edge의 processed 또는 capture 번호 사용 |
 | `qp` | `20` | 기록용 (디코더는 QP와 무관) |
@@ -43,7 +44,18 @@ payload는 JPEG 파일 바이트 그대로이다 (`cv2.imencode(".jpg", BGR 이�
 
 서버 처리: `cv2.imdecode` (BGR) → 640×640 비율 유지 INTER_LINEAR 리사이즈 + 오른쪽·아래 114 패딩, BGR 0~255 → YOLOX-Darknet53 전체 → 후처리
 
-두 모드 모두 같은 체크포인트(`yolox_darknet.pth`), confidence 0.25, NMS 0.45, 박스는 원본 사진 좌표.
+### mode = "hevc" (비교군 A')
+
+payload는 HEVC Annex-B **Access Unit 1개**(프레임 1장, 시작 코드 포함)이다. GStreamer라면 `h265parse config-interval=-1 ! video/x-h265,stream-format=byte-stream,alignment=au ! appsink`의 샘플 하나.
+
+- 서버는 **연결 하나에 HEVC 디코더 하나**를 유지한다 (PyAV, 프레임 스레딩 끔 → AU 1개 입력 시 프레임 1개 바로 출력).
+- 같은 연결로 AU를 순서대로 보낸다. 첫 AU는 VPS/SPS/PPS + I(IDR) 프레임이어야 한다.
+- 연결이 끊기면 디코더도 버린다. 같은 연결에서 다시 시작하려면 헤더에 `"reset": true` (그 요청은 I 프레임이어야 함).
+- AU 1개에서 프레임이 정확히 1개 나오지 않으면 오류 응답 (연결 유지).
+- 서버 처리: AU → 디코딩(BGR) → 640 전처리 → YOLOX-Darknet53 전체 → 후처리.
+- 응답 추가 키: `frame_type`(I/P), `decoded_index`(이 연결에서 디코딩한 순번, 0부터).
+
+세 모드 모두 같은 체크포인트(`yolox_darknet.pth`), confidence 0.25, NMS 0.45, 박스는 원본 사진 좌표.
 
 ## 응답
 
@@ -62,7 +74,7 @@ payload는 JPEG 파일 바이트 그대로이다 (`cv2.imencode(".jpg", BGR 이�
 
 | `t` 키 | jpeg | fcm |
 | --- | --- | --- |
-| `decode_ms` | JPEG 디코딩 | HM 디코딩 + DRNet (= `hm_decode_ms` + `drnet_ms` + 역정규화) |
+| `decode_ms` | JPEG 디코딩 (hevc: AU 디코딩 + BGR 변환) | HM 디코딩 + DRNet (= `hm_decode_ms` + `drnet_ms` + 역정규화) |
 | `hm_decode_ms` | – | HM 디코더 실행 (임시 파일·프로세스 포함) |
 | `drnet_ms` | – | 역정규화 + DRNet |
 | `preprocess_ms` | 640 리사이즈·패딩 | – (보드에서 수행) |
@@ -86,7 +98,7 @@ rtt_ms   = 요청 전송 시작 ~ 결과 수신 끝 = 전송 + server_ms + 응�
 net_ms   = rtt_ms − server_ms
 ```
 
-보드 클라이언트: A는 `server/jpeg_send.py` (manifest 순서대로 PNG → JPEG, 순차 전송, 워밍업 분리, CSV/JSON 로그). B는 `server/board_send.py`의 `ServerLink`를 쓰면 같은 형식으로 보낼 수 있다.
+보드 클라이언트: A'(hevc)는 `server/hevc_send.py` (파일 시험 + 실시간용 `HevcLink`, 표준 라이브러리만 사용). A는 `server/jpeg_send.py` (manifest 순서대로 PNG → JPEG, 순차 전송, 워밍업 분리, CSV/JSON 로그). B는 `server/board_send.py`의 `ServerLink`를 쓰면 같은 형식으로 보낼 수 있다.
 
 ## 아직 정하지 않은 것
 

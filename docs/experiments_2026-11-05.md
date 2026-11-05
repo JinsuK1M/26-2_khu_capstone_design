@@ -48,15 +48,21 @@ Edge가 GStreamer `mpph265enc`(1280×960, 1fps, 목표 1Mbps, GOP 30)로 만든 
 - Mac에서도 OpenCV로 60장 1280×960 디코딩 확인.
 - 결과: `results/2026-11-05/hevc_decode_check.json`, 60장 모음 `results/2026-11-05/hevc_decode_frames.jpg`.
 
-### 서버 HEVC 경로 설계 메모 (구현 전)
+## 5. 서버 HEVC 수신·탐지 경로 추가
 
-- 연결 하나에 디코더 하나를 유지 (P 프레임이 앞 프레임을 참조하므로 상태 유지 필요).
-- B 프레임이 없어 요청 하나(Access Unit 하나) → 디코딩 프레임 하나 → 결과 하나로 frame_id를 짝지을 수 있다.
-- 첫 요청은 VPS·SPS·PPS + I 프레임을 포함해야 한다.
-- 디코더: PyAV (`pip install av`). Edge의 프레임 단위 전송 형식 확정 후 구현.
+- 서버 `mode: "hevc"`: 연결 하나에 HEVC 디코더(PyAV) 하나를 유지, 요청 하나 = Access Unit 하나 → 디코딩 프레임 하나 → YOLOX 전체 → 결과(frame_id, frame_type, decoded_index, 단계별 시간).
+- 디코더 프레임 스레딩을 꺼서(thread_count=1) AU를 넣으면 바로 프레임이 나오게 함 (지연 없음). B 프레임이 없어 frame_id와 결과가 1:1로 대응.
+- 보드 클라이언트 `server/hevc_send.py`: Annex-B 스트림을 AU 단위로 자르는 함수(표준 라이브러리) + 파일 시험 + 실시간용 `HevcLink`.
+- 시험 (`test_gstreamer.hevc`, 같은 컴퓨터):
+  - AU 분리 결과 60개, PyAV 파서와 바이트까지 동일
+  - 12개 전송: I 1 + P 11, 프레임마다 결과 1개, frame_id 일치
+  - 서버 HEVC 디코딩 중앙값 약 19ms (AU 크기에 비례, 1.4KB → 3ms, 179KB → 31ms)
+  - 탐지 결과가 파일 전체 디코딩 결과와 같음 (frame 9: tv 0.92, mouse 0.92, person 0.90)
+  - 새 연결의 첫 AU가 P 프레임이면 오류 응답 후 연결 유지, `reset: true` + I 프레임으로 다시 시작 확인
 
 ## 다음 작업
 
 - [ ] Edge에서 JPEG 60장 실행 → `summary.json`으로 A 결과 정리
 - [ ] 같은 60장으로 B(FCM) 같은 측정 경계 실행 → A와 비교
-- [ ] HEVC 전송 단위 확정 후 서버 HEVC 모드 구현
+- [x] 서버 HEVC 모드 구현 (연결별 디코더, AU 단위)
+- [ ] Edge GStreamer `alignment=au` 출력을 `HevcLink`로 연결해 60장 실행

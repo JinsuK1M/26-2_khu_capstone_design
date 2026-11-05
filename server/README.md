@@ -20,7 +20,8 @@ Edge payload (FCM bytes, <ddHHI 24B 헤더 + HM 비트스트림)
 | --- | --- | --- |
 | `yolox_split.py` | 서버 | YOLOX 모델 로드, 전처리, Edge/Server 분할 함수 (다른 파일이 import) |
 | `fcm_plugin_yolox.py` | 서버·평가 | FCM 팀 번들 연결, HM 설정 `default` / `combined4` 선택 |
-| `yolox_server.py` | 서버 | TCP 서버. FCM·JPEG 두 모드, 단계별 서버 시간, frame_id 반환 |
+| `yolox_server.py` | 서버 | TCP 서버. FCM·JPEG·HEVC 모드 (HEVC는 연결별 디코더 유지), 단계별 서버 시간, frame_id 반환 |
+| `hevc_send.py` | **보드** | 비교군 A': HEVC AU 단위 전송 (파일 시험 + 실시간용 `HevcLink`), AU 분리 함수, CSV/JSON 로그 |
 | `jpeg_send.py` | **보드** | 비교군 A: manifest PNG → JPEG 전송, 순차·워밍업 분리, 프레임별 CSV/JSON 로그 |
 | `board_send.py` | **보드** | 서버로 payload 전송 (표준 라이브러리만 사용). 파일 시험 + 실시간 코드용 `ServerLink` |
 | `yolox_client.py` | Mac | 가짜 Edge. 사진 → dark3 → FCM 압축 → 서버 전송 |
