@@ -27,6 +27,7 @@ Edge payload (FCM bytes, <ddHHI 24B 헤더 + HM 비트스트림)
 | `yolox_eval.py` | Mac | 원본 / 분할 / uint8 / FCM 경로의 mAP 비교 (yolov5 `val.py` 사용) |
 | `yolox_check.py` | Mac | 분할 전후 출력 일치 확인 |
 | `yolox_npu_check.py` | Mac | 보드 NPU dark3 → 서버 탐지 비교 |
+| `hevc_check.py` | Mac | 보드 HEVC 파일 디코딩 확인 (프레임 수·종류·크기, 프레임 저장, 선택 탐지) |
 | `yolox_payload_check.py` | Mac | 보드 payload(.bin) → 서버 복원·탐지, 원본 모델과 비교 그림 저장 |
 
 ## 빠른 실행
