@@ -20,30 +20,58 @@ JSON 헤더:
 
 | 키 | 예 | 설명 |
 | --- | --- | --- |
-| `fcm` | `true` | FCM payload 모드 |
+| `mode` | `"fcm"` / `"jpeg"` | payload 종류. 없으면 `fcm: true` 여부로 판단 (예전 호환) |
+| `fcm` | `true` | (예전 방식) FCM payload 모드 |
 | `frame_id` | `70` | 결과에 그대로 돌려줌. Edge의 processed 또는 capture 번호 사용 |
 | `qp` | `20` | 기록용 (디코더는 QP와 무관) |
 | `hm` | `"combined4"` | 기록용 (디코더는 HM 설정과 무관) |
 | `ratio` | `0.5` | 원본 사진 → 640 축소 비율. 1280×960 카메라는 0.5. 박스를 원본 좌표로 돌려주기 위함. 없으면 1.0 (640 입력 좌표) |
 
+`ratio`는 FCM 모드에서만 쓴다. JPEG 모드는 서버가 받은 이미지 크기로 비율을 직접 계산한다.
+
+### mode = "fcm" (비교군 B)
+
 FCM payload는 팀 번들 `compress()` 반환값 그대로이다: `<ddHHI` (std, mean, h, w, n) 24바이트 + HM 비트스트림 n바이트.
 
 서버 검사: 길이 ≥ 24, `전체 길이 == 24 + n`, 타일 `320×640`, std·mean 유한값. 실패하면 오류 응답을 보내고 연결은 유지한다.
+
+서버 처리: HM 디코딩 → DRNet → dark3 → dark4·dark5 → neck·head → 후처리
+
+### mode = "jpeg" (비교군 A)
+
+payload는 JPEG 파일 바이트 그대로이다 (`cv2.imencode(".jpg", BGR 이미지)` 결과).
+
+서버 처리: `cv2.imdecode` (BGR) → 640×640 비율 유지 INTER_LINEAR 리사이즈 + 오른쪽·아래 114 패딩, BGR 0~255 → YOLOX-Darknet53 전체 → 후처리
+
+두 모드 모두 같은 체크포인트(`yolox_darknet.pth`), confidence 0.25, NMS 0.45, 박스는 원본 사진 좌표.
 
 ## 응답
 
 ```json
 {
-  "frame_id": 70,
-  "dets": [{"box": [x1, y1, x2, y2], "conf": 0.94, "cls": "person"}],
-  "unpack_ms": 173.0,
-  "tail_ms": 204.0,
-  "server_ms": 378.0
+  "frame_id": 12,
+  "mode": "jpeg",
+  "payload_bytes": 198664,
+  "dets": [{"box": [x1, y1, x2, y2], "conf": 0.93, "cls": "tv"}],
+  "server_ms": 981.2,
+  "t": {"decode_ms": 4.8, "preprocess_ms": 1.6, "infer_ms": 972.6, "post_ms": 2.2},
+  "image_hw": [960, 1280],
+  "ratio": 0.5
 }
 ```
 
-- `box`: 원본 사진 좌표(`ratio` 적용), `conf`: obj × class 점수, 기본 0.25 이상, NMS 0.45.
-- `unpack_ms`: HM 디코딩 + DRNet, `tail_ms`: dark4 ~ 후처리, `server_ms`: 서버 전체 처리.
+| `t` 키 | jpeg | fcm |
+| --- | --- | --- |
+| `decode_ms` | JPEG 디코딩 | HM 디코딩 + DRNet (= `hm_decode_ms` + `drnet_ms` + 역정규화) |
+| `hm_decode_ms` | – | HM 디코더 실행 (임시 파일·프로세스 포함) |
+| `drnet_ms` | – | 역정규화 + DRNet |
+| `preprocess_ms` | 640 리사이즈·패딩 | – (보드에서 수행) |
+| `infer_ms` | YOLOX 전체 | dark4 ~ head |
+| `post_ms` | 디코딩·NMS·좌표 변환 | 같음 |
+
+- `server_ms`: payload를 다 받은 직후 ~ 결과 JSON을 만들기 직전. 받는 시간·보내는 시간은 포함하지 않는다.
+- `box`: 원본 사진 좌표, `conf`: obj × class 점수.
+- 예전 클라이언트 호환용으로 `unpack_ms`(decode + preprocess), `tail_ms`(infer)도 함께 보낸다.
 - 오류: `{"frame_id": 70, "error": "길이 불일치: ...", "dets": [], "server_ms": 0.0}`
 
 ## 시간 측정
@@ -51,10 +79,14 @@ FCM payload는 팀 번들 `compress()` 반환값 그대로이다: `<ddHHI` (std,
 Edge와 서버의 시계는 맞추지 않는다. `board_send.py`가 보드 시계로 왕복 시간(`rtt_ms`)을 재고, 서버가 보낸 `server_ms`를 빼서 네트워크 시간(`net_ms`)을 구한다.
 
 ```text
-E2E (보드 기준) = 보드 처리(전처리 ~ payload 완성) + rtt_ms
-rtt_ms        = 전송 + server_ms + 결과 수신
-net_ms        = rtt_ms − server_ms
+total_ms (보드) = 보드 처리 시작 ~ 결과 수신 끝     (PNG 읽기 제외)
+  A (jpeg): JPEG 인코딩 시작 ~ 결과 수신
+  B (fcm) : 전처리(또는 dark3 NPU) 시작 ~ 결과 수신
+rtt_ms   = 요청 전송 시작 ~ 결과 수신 끝 = 전송 + server_ms + 응답
+net_ms   = rtt_ms − server_ms
 ```
+
+보드 클라이언트: A는 `server/jpeg_send.py` (manifest 순서대로 PNG → JPEG, 순차 전송, 워밍업 분리, CSV/JSON 로그). B는 `server/board_send.py`의 `ServerLink`를 쓰면 같은 형식으로 보낼 수 있다.
 
 ## 아직 정하지 않은 것
 

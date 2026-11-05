@@ -73,6 +73,21 @@ class FCM:
     def decompress(self, blob):  # [Server] bytes -> (1,256,80,80)
         return fcm_server.decompress(self.dec, blob)
 
+    def decompress_timed(self, blob):
+        """fcm_server.decompress 와 같은 계산을 단계별 시간과 함께: (dark3, {'hm_decode_ms', 'drnet_ms'})"""
+        import time
+        import torch
+        std, mean, h, w, n = struct.unpack_from(fcm_edge.HDR, blob)
+        off = struct.calcsize(fcm_edge.HDR)
+        t0 = time.perf_counter()
+        frame = fcm_server._hm_decode(blob[off:off + n], h, w)
+        t1 = time.perf_counter()
+        recon = fcm_server.dequantize_frame(frame, 128, 40, 40, std, mean)
+        with torch.no_grad():
+            dark3 = self.dec(recon)
+        t2 = time.perf_counter()
+        return dark3, {"hm_decode_ms": (t1 - t0) * 1000, "drnet_ms": (t2 - t1) * 1000}
+
     def __call__(self, feats):
         """평가용: {'dark3': (B,256,80,80)} -> 압축·복원한 {'dark3': ...}, 장당 전송 바이트 수"""
         import torch

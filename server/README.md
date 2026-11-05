@@ -20,7 +20,8 @@ Edge payload (FCM bytes, <ddHHI 24B 헤더 + HM 비트스트림)
 | --- | --- | --- |
 | `yolox_split.py` | 서버 | YOLOX 모델 로드, 전처리, Edge/Server 분할 함수 (다른 파일이 import) |
 | `fcm_plugin_yolox.py` | 서버·평가 | FCM 팀 번들 연결, HM 설정 `default` / `combined4` 선택 |
-| `yolox_server.py` | 서버 | TCP 서버. FCM payload 검사·복원·탐지, frame_id 반환 |
+| `yolox_server.py` | 서버 | TCP 서버. FCM·JPEG 두 모드, 단계별 서버 시간, frame_id 반환 |
+| `jpeg_send.py` | **보드** | 비교군 A: manifest PNG → JPEG 전송, 순차·워밍업 분리, 프레임별 CSV/JSON 로그 |
 | `board_send.py` | **보드** | 서버로 payload 전송 (표준 라이브러리만 사용). 파일 시험 + 실시간 코드용 `ServerLink` |
 | `yolox_client.py` | Mac | 가짜 Edge. 사진 → dark3 → FCM 압축 → 서버 전송 |
 | `yolox_eval.py` | Mac | 원본 / 분할 / uint8 / FCM 경로의 mAP 비교 (yolov5 `val.py` 사용) |

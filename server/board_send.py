@@ -50,7 +50,7 @@ class ServerLink:
     def __init__(self, host, port=9997, qp=20, hm="combined4", ratio=0.5, timeout=10):
         self.sock = socket.create_connection((host, port), timeout=timeout)
         self.sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-        self.base = {"fcm": True, "qp": qp, "hm": hm, "ratio": ratio}
+        self.base = {"mode": "fcm", "fcm": True, "qp": qp, "hm": hm, "ratio": ratio}
 
     def send(self, payload, frame_id):
         """payload 보내고 탐지 결과 받기. 결과에 rtt_ms(왕복), net_ms(왕복 - 서버 처리) 추가"""
