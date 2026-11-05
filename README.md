@@ -2,7 +2,17 @@
 
 FCM(Feature Coding for Machines)을 이용한 엣지–서버 오프로딩 지연시간 최적화 연구.
 
-Orange Pi 5 Pro에서 카메라 입력, YOLOX-Darknet53 dark3 특징 추출, FCM 압축을 연결한 Edge 코드와 보드 실험 기록이다. 서버 연결은 후속 단계이다.
+Orange Pi 5 Pro에서 카메라 입력, YOLOX-Darknet53 dark3 특징 추출, FCM 압축을 연결한 Edge 코드와 보드 실험 기록이다. SW FCM 서버 연결과 저장 입력 HW FCM 통합까지 검증했다.
+
+## 최신 진행 (2026-11-06)
+
+HW 특징 압축 후보와 서버 복원·탐지 연결을 동일 저장 입력 60장에서 검증했다. 서버 방향 업로드 상한 5/3/1/0.5Mbps에서 전체 지연 중앙값은 566/568/584/601ms였다. mAP와 실시간 카메라 HW 경로는 미검증이며 기존 SW 기본값은 보존한다.
+
+- [HW 통합·실행 방법](docs/hw_fcm_integration.md)
+- [지연·전송량 및 한계](docs/experiments_2026-11-06.md)
+- [서버 담당자용 별도 어댑터](integrations/server_hw/README.md)
+
+아래 구성과 11월3일 값은 기존 SW 경로 기록이다.
 
 ## 현재 구성
 
@@ -15,7 +25,7 @@ OV13855 카메라 1280×960 NV12
  → HM combined4, QP20
  → payload
 
-예정: 소켓 전송 → 서버 HM·DRNet 복원 → dark4·dark5 → neck·head → 탐지
+SW 연결 완료: 소켓 전송 → 서버 HM·DRNet 복원 → dark4·dark5 → neck·head → 탐지
 ```
 
 ### 선택한 기본값

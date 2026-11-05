@@ -13,7 +13,8 @@ class DeployTests(unittest.TestCase):
     def make_repo(self, root):
         repo = root/'repo'
         for name,text in [('edge/darknet53/live.py','new'),
-                          ('edge/fcm_tools/verify_live_fcm.py','verify')]:
+                          ('edge/fcm_tools/verify_live_fcm.py','verify'),
+                          ('edge/network_test/board_send.py','transport')]:
             p=repo/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(text)
         return repo
 
@@ -33,6 +34,7 @@ class DeployTests(unittest.TestCase):
             self.assertEqual((Path(result['backup'])/'darknet53/live.py').read_text(),'old')
             self.assertEqual(model.read_bytes(),b'existing-model')
             self.assertEqual((target/'fcm_l37/verify_live_fcm.py').read_text(),'verify')
+            self.assertEqual((target/'network_test/board_send.py').read_text(),'transport')
             self.assertEqual(module.deploy(repo,target,True)['changed'],0)
 
     def test_parent_symlink_cannot_redirect_writes(self):

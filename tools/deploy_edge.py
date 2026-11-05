@@ -18,6 +18,8 @@ def plan(repository, target):
     mappings = []
     for source in sorted((repository / 'edge/darknet53').glob('*.py')):
         mappings.append((source, target / 'darknet53' / source.name))
+    for source in sorted((repository / 'edge/network_test').glob('*.py')):
+        mappings.append((source, target / 'network_test' / source.name))
     for source in sorted((repository / 'edge/fcm_tools').glob('*.py')):
         subdir = 'fcm_l37' if source.name in ('verify_live_fcm.py','benchmark_fcm_encode.py') else 'fcm_l37/fcm_bundle'
         mappings.append((source, target / subdir / source.name))

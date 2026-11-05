@@ -1,6 +1,6 @@
 # Edge 코드 안내
 
-최종 실행 진입점은 `darknet53/live_dark3_fcm.py` 하나이다. 기본값은 FENet NPU, HM combined4, QP20, 4스레드, 순차 실행이다.
+기존 SW 카메라 경로의 실행 진입점은 `darknet53/live_dark3_fcm.py` 하나이다. 기본값은 FENet NPU, HM combined4, QP20, 4스레드, 순차 실행이다.
 
 ## 실행·실험 스크립트
 
@@ -20,3 +20,7 @@
 | camera_preview.py | 초기 live_backbone 뷰어 보조 모듈 |
 
 `fcm_tools`의 검증·변환 도구는 [배치 도구](../tools/deploy_edge.py)가 필요한 실행 폴더로 복사한다. 모델·팀원 FCM 번들이 있어야 하며, 저장소의 소스 검사 통과가 보드 테스트를 대신하지 않는다.
+
+## 2026-11-06 추가
+
+저장 입력 HW FCM은 `darknet53/replay_fcm_hw_server.py`이며 기존 SW 기본 파일을 대체하지 않는다. [HW 통합 문서](../docs/hw_fcm_integration.md)에 의존 파일·서버 어댑터·실행 명령·대역폭 제한 및 복구를 기록했다. `network_test/board_send.py`도 배치 도구가 복사한다. 네트워크 주소는 `--host`로 명시한다.

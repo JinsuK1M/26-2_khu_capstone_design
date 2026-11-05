@@ -58,3 +58,21 @@ dark3_only/
 fenet_npu_candidate/
 .edge-backups/
 backups/
+
+# New replay, transport and hardware-codec artifacts
+*.hevc
+*.h265
+*.mkv
+*.raw
+replay_inputs/
+replay_fcm_runs/
+replay_hevc_encode_runs/
+replay_fcm_hw_server_runs/
+replay_aba_runs/
+bandwidth_comparisons/
+hw_fcm_bandwidth_runs/
+fcm_hw_candidates/
+fcm_hw_comparisons/
+live_server_runs/
+hevc_test/
+runs/
