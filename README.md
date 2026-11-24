@@ -6,7 +6,7 @@ Orange Pi 5 Pro에서 카메라 입력, YOLOX-Darknet53 dark3 특징 추출, FCM
 
 ## 최신 진행 (2026-11-24)
 
-EVA-01 대형 검출기의 보드 앞 4블록(k=4) 실행 검증을 별도 실험으로 추가했다. 실제 가중치의 보드 CPU 전체 백본 실행은 성공했고, 보드 k=4 RKNN API 중앙값은 baseline 3,281.9ms에서 layout v2 1,475.6ms로 줄었다. CPU/NPU 혼합 실행이며 서버 분할 연결·EVA용 FCM·mAP는 아직 미검증이다. 기존 YOLOX 실행 코드는 유지한다.
+EVA-01 대형 검출기의 보드 앞 4블록(k=4) 실행 검증을 별도 실험으로 추가했다. 실제 가중치의 보드 CPU 전체 백본 실행은 성공했고, 보드 k=4 RKNN API 중앙값은 baseline 3,281.9ms에서 layout v2 1,475.6ms로 줄었다. CPU/NPU 혼합 실행이다. 서버 담당자가 사진1장의 무압축 분할 연결을 확인했으며 EVA용 FCM·mAP는 아직 미검증이다. 기존 YOLOX 실행 코드는 유지한다.
 
 - [EVA-01 코드·실험 결과·다음 단계](experiments/eva01/README.md)
 - [서버 전달 파일 묶기 도구](experiments/eva01/eva01_board_k4_layout_v2/src/pack_server_sample.py)

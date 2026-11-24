@@ -1,6 +1,6 @@
 # EVA-01 보드 분할 실행 검증
 
-현재 선택한 보드 경로는 `eva01_board_k4_layout_v2`다. 공식 COCO 탐지 가중치의 앞 4개 블록을 RKNN으로 실행했다. 보드의 실제 특징을 서버 나머지 모델에 연결하는 단계이며, EVA용 FCM 학습·통합·mAP는 아직 확인하지 않았다. 기존 YOLOX 실험과 별도 폴더로 관리한다.
+현재 선택한 보드 경로는 `eva01_board_k4_layout_v2`다. 공식 COCO 탐지 가중치의 앞 4개 블록을 RKNN으로 실행했다. 서버 담당자 메시지로 사진1장의 무압축 보드 특징→나머지 모델 연결 성공을 확인했다. EVA용 FCM 학습·통합·mAP는 아직 확인하지 않았다. 기존 YOLOX 실험과 별도 폴더로 관리한다.
 
 ## 구현과 검증 범위
 
@@ -9,7 +9,7 @@
 | 보드 전체 백본 CPU | 실제 가중치 40블록, 합성 640 입력 1회, 74.20초 | 전체 백본은 실행 가능. FPN/RPN/ROI 포함 전체 검출기 실행 결과는 아님 |
 | 맥북 전체 검출기 CPU | M2 Pro 16GB, 실제 사진 640 입력, 17.56초, 12개 탐지와 mask | 사용자 맥북 검사. 팀원 서버 재현·분할·FCM·실시간·mAP 검증은 아님 |
 | 보드 k=4 | 실제 사진 입력, CORE0, 특징 형상 및 CPU 기준 수치 비교 통과 | CPU와 NPU 혼합 실행. 잠정 특징 검사이며 최종 탐지 정확도 합격을 의미하지 않음 |
-| 서버 분할 연결 | 아직 미검증 | 파일로 실제 보드 특징을 전달한 뒤 5번째 블록부터 이어서 실행 필요 |
+| 서버 분할 연결 | 서버 담당자 메시지로 사진1장 성공 확인 | reference33개가 전체 실행과 동일. NPU30개 중29개가 reference와 같은 클래스로 대응. mAP/FCM 검증 아님 |
 | EVA용 FCM | 아직 미통합 | 팀원 학습 후 FENet/DRNet 및 실제 코덱 연결 필요 |
 
 이 결과로 “EVA-01 전체 모델은 보드에서 실행 불가능하다”고 주장할 수 없다. 실제로 전체 백본 CPU 실행은 성공했다. 640 전체 백본과 352 앞 4블록은 범위와 입력이 다르므로 속도 향상 배수로 비교하지 않는다.
@@ -105,3 +105,10 @@ python -u src/pack_server_sample.py --run runs/npu_20261124_153821_484855
 - Detectron2 CPU 빌드는 기존 검증 시 `CFLAGS`/`CXXFLAGS=-Wno-invalid-specialization`, `FORCE_CUDA=0`, `MAX_JOBS=2`를 사용했다. 새 환경에서는 별도 검증이 필요하다.
 - `check_mac_detector.py`의 미설치 Soft-NMS import guard는 호출 시 명시적으로 실패한다. 실제 검사는 torchvision CPU 기본 NMS/ROIAlign 경로다. Soft-NMS가 구현됐다는 의미가 아니다.
 - upstream: [EVA](https://github.com/baaivision/EVA), [공식 탐지 가중치](https://huggingface.co/BAAI/EVA/blob/main/eva_coco_det.pth), [timm v0.6.11 MLP](https://github.com/huggingface/pytorch-image-models/blob/v0.6.11/timm/models/layers/mlp.py). 제3자 코드는 별도 준비하며 해당 라이선스를 따른다.
+
+
+## 추가 진행: 무압축 연결 확인과 실제 보드 학습 특징 수집
+
+서버 담당자 메시지에서 같은 체크포인트로 두 특징의 최종 검출 성공이 확인됐다. reference는 전체 실행과33개 모두 점수·박스 차이0이었다. 점수0.3 이상에서 reference33개/NPU30개 중29개가 같은 클래스로 대응했고, 대응한 검출은 최대 점수 차0.028·최대 박스 차1.46px·최소IoU0.98이었다. reference에만4개, NPU에만1개가 있었다. 서버 뒷부분 시간 약4.1~4.4초는 사진1장의 안내값이며 정식 반복/E2E 측정이나 mAP가 아니다. [메시지 근거 기록](results/server_split_message_20261124.json)을 별도 보존했다.
+
+FCM 담당자가 요청한 학습 특징은 [feature_collection/README.txt](feature_collection/README.txt)의 코드로 실제 보드에서 직접 수집할 수 있다. COCO train2017의 고정1000장을 준비하고 기존 v2 RKNN으로 float16 NCHW (1,1408,22,22)를 저장한다. 먼저20장으로 저장 규격을 확인한 뒤 같은 수집 폴더에서1000장까지 재개할 수 있다. 기존 val2017 평가500장은 사용하지 않는다. 이 새 수집 코드의 로컬 전처리·데이터 보호·저장·전달 묶음 및 가상 런타임 재개 검사는 통과했지만 실제 보드 실행은 아직 수행하지 않았다. 기존336/352 전처리 조건을 FCM 담당자와 공유한 뒤 학습에 사용해야 한다.

@@ -1,0 +1,32 @@
+{
+  "evidence_source": "서버 담당자가 사용자에게 보낸 실행 결과 메시지. 원본 서버 report JSON·전체 로그는 아직 수집하지 않음.",
+  "checkpoint_sha256_match": "서버 담당자 확인",
+  "scope": "사진1장, 같은 가중치, blocks[4]부터 FPN/Cascade R-CNN 최종 검출. patch/position embedding 재적용 없음. 기본 NMS. FCM 미적용.",
+  "both_paths_completed": true,
+  "reference_vs_whole_detector": {
+    "identical_detections": 33,
+    "score_difference": 0,
+    "box_difference_px": 0
+  },
+  "npu_vs_reference_at_score_0_3": {
+    "reference_count": 33,
+    "npu_count": 30,
+    "matched_same_class": 29,
+    "reference_only": 4,
+    "npu_only": 1,
+    "matched_max_score_difference": 0.028,
+    "matched_max_box_difference_px": 1.46,
+    "matched_min_iou": 0.98,
+    "one_sided_detection_score_range": [
+      0.31,
+      0.37
+    ],
+    "matching_algorithm": "팀원 메시지에서 세부 알고리즘 미기재"
+  },
+  "server_suffix_cpu_seconds_approx": [
+    4.1,
+    4.4
+  ],
+  "server_hardware": "맥 CPU. 이번 메시지에 장비 세부 사양 미기재.",
+  "interpretation": "무압축 분할 경계 및 실제 보드 특징의 서버 연결 성공을 사진1장에서 확인. mAP 또는 FCM 정확도/전체 E2E/정식 반복 지연 측정 아님."
+}
