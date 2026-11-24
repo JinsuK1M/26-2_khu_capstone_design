@@ -1,0 +1,36 @@
+{
+  "evidence_source": "사용자가 제공한 실제 보드 터미널 로그. 전달 묶음 자체를 이 맥북에서 아직 내려받거나 독립 검증하지 않음.",
+  "collection_report": {
+    "state": "completed",
+    "producer": "actual_board_rknn_layout_v2",
+    "dataset": "COCO train2017",
+    "requested_images": 1000,
+    "source_images": 1000,
+    "completed_images": 1000,
+    "saved_shape": [
+      1,
+      1408,
+      22,
+      22
+    ],
+    "saved_dtype": "float16",
+    "npu_core": "NPU_CORE_0",
+    "checkpoint_sha256": "2cbbd46259851bad0052b418464cd866097e0e01bb60ae368b213ab040960650",
+    "rknn_sha256": "b6d833638fe9e99e54b1fa8dd5fa13cb611c8216ae50965c8e27b302e531ebb6",
+    "source_manifest_sha256": "8bffbb522952785858da5359def87a1ab21daa3c3bd3c6e14f9ea3f25108e2bd",
+    "contract_sha256": "0b300378b248c790f2bd63d865f90dfde2e9af2970a2daaab2a07e62f2116fe5",
+    "note": "특징 수집 작업. FCM 학습·복원·최종 검출·mAP·정식 지연 벤치마크 아님. 재개하면 여러 세션의 결과가 합쳐짐.",
+    "preflight_feature_comparison": {
+      "relative_l2": 0.008430683185274844,
+      "cosine": 0.9999644687284173,
+      "scope": "기존 검사 사진1장"
+    },
+    "feature_file_bytes": 1363072000,
+    "fp16_rounding_relative_l2_max": 0.0
+  },
+  "run_folder_name": "features_20261124_221825_519399",
+  "archive_filename": "features_20261124_221825_519399_1000frames.tar.gz",
+  "archive_sha256_reported": "f2a4004e4d723d9fc1ec8c7a2446df9228bc0e32344715b4c14a99dc0d9191b1",
+  "handoff_status": "보드에서 수집·파일 묶기 완료. 맥북 다운로드·FCM 담당자 수신/로더 확인은 아직 확인 전.",
+  "scope": "actual_board_rknn_layout_v2의 학습 특징1000장 저장. FCM 학습/복원/최종 검출/mAP 측정 아님."
+}
