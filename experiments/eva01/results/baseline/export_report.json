@@ -1,0 +1,42 @@
+{
+  "state": "completed",
+  "scope": "실제 사전학습 COCO 탐지 가중치의 PatchEmbed+위치정보+blocks0..3 구간. 실제사진1장, CPU/ONNX 검증. 보드 NPU·FCM·서버연결·mAP·정식속도 검증 아님.",
+  "parameters": 102399552,
+  "checkpoint_sha256": "2cbbd46259851bad0052b418464cd866097e0e01bb60ae368b213ab040960650",
+  "onnx_sha256": "6aa2c8c7aa0f546d93d599e2c5a18bb8620994cba8b4f7691860da52d7816b22",
+  "input_shape": [
+    1,
+    3,
+    352,
+    352
+  ],
+  "output_shape": [
+    1,
+    1408,
+    22,
+    22
+  ],
+  "first_cpu_call_ms": 216.43599999998742,
+  "onnx_max_abs": 5.412101745605469e-05,
+  "onnx_relative_l2": 3.3347726002830314e-06,
+  "onnx_ops": [
+    "Add",
+    "Conv",
+    "Div",
+    "Einsum",
+    "Erf",
+    "Gemm",
+    "LayerNormalization",
+    "MatMul",
+    "Mul",
+    "Pad",
+    "Reshape",
+    "Slice",
+    "Softmax",
+    "Split",
+    "Squeeze",
+    "Transpose",
+    "Unsqueeze"
+  ],
+  "onnx_bytes": 411985103
+}

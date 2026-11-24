@@ -1,0 +1,21 @@
+{
+  "eva_source": {
+    "url": "https://github.com/baaivision/EVA.git",
+    "revision": "5623d08bb08a8268c7bc18e1d9b8b4bd651fe4d9"
+  },
+  "checkpoint": {
+    "url": "https://huggingface.co/BAAI/EVA/resolve/main/eva_coco_det.pth",
+    "bytes": 4295207874,
+    "sha256": "2cbbd46259851bad0052b418464cd866097e0e01bb60ae368b213ab040960650"
+  },
+  "timm_mlp": {
+    "url": "https://raw.githubusercontent.com/huggingface/pytorch-image-models/v0.6.11/timm/models/layers/mlp.py",
+    "sha256": "da6ed06863182ad4d40f41a3b914228edeb412bb8813213b5176664246823486"
+  },
+  "test_image": {
+    "name": "bus.jpg",
+    "sha256": "fb4914d123d97c440cd127ef0e98d4bdc68cd88e2683657528928b4a34014e16",
+    "note": "이미 준비한 RKNN model zoo 예제 사진을 별도 사용. Git에 미포함."
+  },
+  "selected_variant": "eva01_board_k4_layout_v2"
+}

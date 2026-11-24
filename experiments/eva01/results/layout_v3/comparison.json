@@ -1,0 +1,23 @@
+{
+  "v2_median_ms": 1475.6359889997839,
+  "v3_median_ms": 1482.870339999863,
+  "v3_median_change_pct": 0.4902530877539002,
+  "v2_p95_ms": 1497.6921617997505,
+  "v3_p95_ms": 1508.4521657998266,
+  "v2_cpu_transpose_count": 8,
+  "v3_cpu_transpose_count": 8,
+  "v3_cpu_transpose_rows": [
+    "D RKNN: [15:47:47.057] 19   Transpose          FLOAT16  CPU    (256,256,1,64)                           (64,256,1,256)         0/0/0                    8192         Transpose:/model/blocks.0/attn/MatMul_2_output_0_mm_tp",
+    "D RKNN: [15:47:47.057] 20   Transpose          FLOAT16  CPU    (256,256,1,64)                           (64,256,1,256)         0/0/0                    8192         Transpose:/model/blocks.0/attn/MatMul_1_output_0_mm_tp",
+    "D RKNN: [15:47:47.057] 55   Transpose          FLOAT16  CPU    (256,256,1,64)                           (64,256,1,256)         0/0/0                    8192         Transpose:/model/blocks.1/attn/MatMul_2_output_0_mm_tp",
+    "D RKNN: [15:47:47.057] 56   Transpose          FLOAT16  CPU    (256,256,1,64)                           (64,256,1,256)         0/0/0                    8192         Transpose:/model/blocks.1/attn/MatMul_1_output_0_mm_tp",
+    "D RKNN: [15:47:47.057] 91   Transpose          FLOAT16  CPU    (256,256,1,64)                           (64,256,1,256)         0/0/0                    8192         Transpose:/model/blocks.2/attn/MatMul_2_output_0_mm_tp",
+    "D RKNN: [15:47:47.057] 92   Transpose          FLOAT16  CPU    (256,256,1,64)                           (64,256,1,256)         0/0/0                    8192         Transpose:/model/blocks.2/attn/MatMul_1_output_0_mm_tp",
+    "D RKNN: [15:47:47.057] 123  Transpose          FLOAT16  CPU    (484,484,1,16)                           (16,484,1,484)         0/0/0                    7381         Transpose:/model/blocks.3/attn/MatMul_2_output_0_mm_tp",
+    "D RKNN: [15:47:47.057] 124  Transpose          FLOAT16  CPU    (484,484,1,16)                           (16,484,1,484)         0/0/0                    7381         Transpose:/model/blocks.3/attn/MatMul_1_output_0_mm_tp"
+  ],
+  "feature_comparison_metrics_equal": true,
+  "selected_for_integration": "layout_v2",
+  "interpretation": "이번 측정에서 v3 속도 개선 없음. 0.49% 차이의 유의성은 반복 측정 없이 판단하지 않음. CPU Transpose 8개의 동일한 입출력 형상이 컴파일된 배치 표에 다시 나타남. 합쳐진 것으로 추정되지만 내부 최적화 패스 원인은 미확정.",
+  "scope": "고정 사진 1장, 워밍업3회/측정5회, CORE0 RKNN API 호출만. 전처리/FCM/전송/서버/전체 탐지/mAP 제외."
+}

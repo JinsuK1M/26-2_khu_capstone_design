@@ -1,0 +1,49 @@
+{
+  "state": "completed",
+  "stage": "실제 NPU 실행 완료",
+  "scope": "실제 탐지 가중치 앞4블록, 고정 사진입력, NPU CORE0. API 호출만 시간 측정; 전처리·CPU검사·FCM·압축·전송·전체 탐지·mAP 제외.",
+  "warmup": 3,
+  "measured_calls": 5,
+  "execution_completed": true,
+  "checkpoint_sha256": "2cbbd46259851bad0052b418464cd866097e0e01bb60ae368b213ab040960650",
+  "onnx_sha256": "de386f6066fb41399e476b776e6577b1945ad1deb27949983dd55d45f3a0a9da",
+  "rknn_sha256": "cb71140b544a2ed6d9ac6f3a022e418f0e345b766212fd02cde6cf4784946756",
+  "npu_core": "NPU_CORE_0",
+  "split_k": 4,
+  "input_shape": [
+    1,
+    3,
+    352,
+    352
+  ],
+  "output_shape": [
+    1,
+    1408,
+    22,
+    22
+  ],
+  "output_layout_conversion": "NCHW",
+  "output_dtype": "float32",
+  "first_api_ms": 1486.5626959999645,
+  "npu_api_ms": {
+    "samples": [
+      1478.746787000091,
+      1493.4331570002541,
+      1482.870339999863,
+      1482.0945339997706,
+      1512.2069179997197
+    ],
+    "mean": 1489.8703471999397,
+    "median": 1482.870339999863,
+    "p95": 1508.4521657998266
+  },
+  "feature_comparison": {
+    "max_abs": 0.11243724822998047,
+    "mean_abs": 0.0042617471801562066,
+    "relative_l2": 0.008430683185274844,
+    "cosine": 0.9999644687284173
+  },
+  "provisional_numeric_screen_pass": true,
+  "numeric_screen_note": "relativeL2<=0.02/cosine>=0.999는 특징 수치의 잠정 점검 기준이며 최종 탐지 정확도 합격 기준이 아님. 사진1장만 검사.",
+  "process_peak_rss_mib": 925.16796875
+}

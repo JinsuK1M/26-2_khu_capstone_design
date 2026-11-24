@@ -1,0 +1,29 @@
+{
+  "baseline_median_ms": 3281.8921170000976,
+  "v2_median_ms": 1475.6359889997839,
+  "speedup": 2.224052639990592,
+  "median_reduction_pct": 55.037035454150484,
+  "baseline_p95_ms": 3615.3411014000994,
+  "v2_p95_ms": 1497.6921617997505,
+  "same_checkpoint": true,
+  "same_input_shape": true,
+  "same_output_shape": true,
+  "baseline_process_peak_rss_mib": 610.73828125,
+  "v2_process_peak_rss_mib": 925.38671875,
+  "v2_cpu_fallback_status": "사용자가 제공한 전체 로그 CPU target 행으로 확인: 실제 Transpose 8개 + InputOperator/OutputOperator. CPUWeightTransposePass는 변환 단계 로그로 별도 분류.",
+  "scope": "고정 사진 1장, warmup3/측정5. RKNN API 호출만. 전처리/FCM/전송/서버/전체 탐지/mAP 제외. 순서 교대 반복 측정 아님.",
+  "v2_cpu_compute_ops": {
+    "Transpose": 8
+  },
+  "cpu_transpose_paths": [
+    "/model/blocks.0/attn/Transpose_4",
+    "/model/blocks.0/attn/Transpose_6",
+    "/model/blocks.1/attn/Transpose_4",
+    "/model/blocks.1/attn/Transpose_6",
+    "/model/blocks.2/attn/Transpose_4",
+    "/model/blocks.2/attn/Transpose_6",
+    "/model/blocks.3/attn/Transpose_6",
+    "/model/blocks.3/attn/Transpose_8"
+  ],
+  "warning_interpretation": "3Core fallback to single core는 NPU 단일 코어 사용 경고이며 CPU fallback과 다름. emitUnpackRegtasks 한계 경고만으로 실행 실패나 시간 기여도를 확정할 수 없음."
+}

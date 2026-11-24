@@ -1,0 +1,26 @@
+{
+  "state": "completed",
+  "evidence_source": "사용자가 제공한 보드 report 및 time 출력. 원본 보드 로그 전체는 Git에 미포함.",
+  "device": "cpu",
+  "threads": 4,
+  "dtype": "float32",
+  "input_shape": [
+    1,
+    3,
+    640,
+    640
+  ],
+  "initialization_img_size": 1280,
+  "parameters": 1011754368,
+  "checkpoint_sha256": "2cbbd46259851bad0052b418464cd866097e0e01bb60ae368b213ab040960650",
+  "first_backbone_inference_s": 74.20151829899987,
+  "output_shape": [
+    1,
+    1408,
+    40,
+    40
+  ],
+  "process_peak_rss_mib": 4644.453125,
+  "scope": "공식 탐지 체크포인트의 ViT 백본 40블록. 합성 입력 1회. FPN/RPN/ROI/전체 검출/분할/FCM/mAP 제외.",
+  "interpretation": "이 조건에서 전체 백본 CPU 실행 성공. 보드 전체 검출기 실행 불가의 증거로 사용할 수 없음."
+}

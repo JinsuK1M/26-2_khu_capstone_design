@@ -1,0 +1,15 @@
+{
+  "state": "completed",
+  "scope": "GitHub 정리 후 로컬 검증. 실제 보드 재실행이나 서버 연결 검증은 아님.",
+  "python_sources_syntax_checked": 16,
+  "json_parse": "passed",
+  "shell_syntax": "passed: 4 entry scripts",
+  "existing_repository_unit_tests": 3,
+  "official_asset_revision_and_hash_check": "passed",
+  "relocated_v2_export": "passed",
+  "reproduced_v2_onnx_sha256": "1daacc9c2c7ced7cae301ca245454ce9ddf2504b1c59365c9cd434c306729fa1",
+  "v2_export_matches_board_tested_artifact": true,
+  "v2_onnx_relative_l2_vs_original_cpu": 3.3253602396143833e-06,
+  "handoff_tool_board_execution": "pending; requires actual saved board feature file",
+  "large_artifacts_in_git": "excluded"
+}

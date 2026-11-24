@@ -4,7 +4,14 @@ FCM(Feature Coding for Machines)을 이용한 엣지–서버 오프로딩 지�
 
 Orange Pi 5 Pro에서 카메라 입력, YOLOX-Darknet53 dark3 특징 추출, FCM 압축을 연결한 Edge 코드와 보드 실험 기록이다. SW FCM 서버 연결과 저장 입력 HW FCM 통합까지 검증했다.
 
-## 최신 진행 (2026-11-06)
+## 최신 진행 (2026-11-24)
+
+EVA-01 대형 검출기의 보드 앞 4블록(k=4) 실행 검증을 별도 실험으로 추가했다. 실제 가중치의 보드 CPU 전체 백본 실행은 성공했고, 보드 k=4 RKNN API 중앙값은 baseline 3,281.9ms에서 layout v2 1,475.6ms로 줄었다. CPU/NPU 혼합 실행이며 서버 분할 연결·EVA용 FCM·mAP는 아직 미검증이다. 기존 YOLOX 실행 코드는 유지한다.
+
+- [EVA-01 코드·실험 결과·다음 단계](experiments/eva01/README.md)
+- [서버 전달 파일 묶기 도구](experiments/eva01/eva01_board_k4_layout_v2/src/pack_server_sample.py)
+
+## 이전 진행 (2026-11-06)
 
 HW 특징 압축 후보와 서버 복원·탐지 연결을 동일 저장 입력 60장에서 검증했다. 서버 방향 업로드 상한 5/3/1/0.5Mbps에서 전체 지연 중앙값은 566/568/584/601ms였다. mAP와 실시간 카메라 HW 경로는 미검증이며 기존 SW 기본값은 보존한다.
 
@@ -56,6 +63,7 @@ tools/             보드 배치 도구
 docs/              실행 방법, 서버 연결 규격, 실험 해석
 results/           터미널 출력에서 옮겨 적은 대표 측정 요약
 tests/             배치 도구의 로컬 검증
+experiments/eva01/  EVA-01 보드 k=4 코드·실험별 계약·측정 기록
 ```
 
 ## 시작하기

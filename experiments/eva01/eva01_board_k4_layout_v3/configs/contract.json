@@ -1,0 +1,70 @@
+{
+  "model": "EVA-01 COCO detector prefix",
+  "checkpoint_sha256": "2cbbd46259851bad0052b418464cd866097e0e01bb60ae368b213ab040960650",
+  "source_revision": "5623d08bb08a8268c7bc18e1d9b8b4bd651fe4d9",
+  "split_k": 4,
+  "block_indices": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "attention": [
+    "window16",
+    "window16",
+    "window16",
+    "global"
+  ],
+  "input_shape_nchw": [
+    1,
+    3,
+    352,
+    352
+  ],
+  "input_dtype": "float32",
+  "output_shape_nchw": [
+    1,
+    1408,
+    22,
+    22
+  ],
+  "preprocessing": {
+    "color": "RGB",
+    "verification_resize": [
+      336,
+      336
+    ],
+    "resize": "OpenCV INTER_LINEAR direct resize for this probe",
+    "range_before_normalization": "0..255",
+    "mean": [
+      123.675,
+      116.28,
+      103.53
+    ],
+    "std": [
+      58.395,
+      57.12,
+      57.375
+    ],
+    "padding": "after normalization: bottom16/right16 value0",
+    "source_input_hw": [
+      336,
+      336
+    ],
+    "canvas_hw": [
+      352,
+      352
+    ]
+  },
+  "input_boundary": "already normalized and padded buffer; RKNN mean0/std1; do not normalize twice",
+  "position_embedding": "included exactly once in prefix; initialized parameter shape kept at original checkpoint",
+  "output_boundary": "after complete fourth residual block; NCHW; server must resume blocks[4] without redoing patch/position embedding",
+  "frame_sha256": "fb4914d123d97c440cd127ef0e98d4bdc68cd88e2683657528928b4a34014e16",
+  "parameters": 102399552,
+  "onnx_sha256": "de386f6066fb41399e476b776e6577b1945ad1deb27949983dd55d45f3a0a9da",
+  "input_sha256": "d052cb1daf3bc3cbf18dabbd846598aad36a798797728702692413e591a3b24d",
+  "reference_sha256": "4a3dcc5ffa460ef92255060f9f9d3305522f2a58d3556363dfc35100c6a609c3",
+  "implementation": "layout_v3: eight relative-position Transpose/Gather pairs chunked along query axis; same weights/input/attention",
+  "note": "336/352 is a provisional probe configuration, not confirmation of training preprocessing or split choice; no FCM or server changes.",
+  "parent_onnx_sha256": "1daacc9c2c7ced7cae301ca245454ce9ddf2504b1c59365c9cd434c306729fa1"
+}

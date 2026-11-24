@@ -1,0 +1,50 @@
+{
+  "state": "completed",
+  "stage": "실제 전체 객체 검출기 CPU 실행 완료",
+  "device": "cpu",
+  "dtype": "float32",
+  "input_size": 640,
+  "threads": 4,
+  "scope": "실제 사전학습 EVA-01 전체 ViT+피라미드+RPN+Cascade ROI+mask 실행. CPU 기본NMS 경로, confidence0.25, 실제사진1장. Soft-NMS·MPS·분할·FCM·mAP·정식속도평가 아님.",
+  "torch": "2.2.2",
+  "torchvision": "0.17.2",
+  "timm": "0.9.16",
+  "detectron2": "0.6",
+  "machine": "arm64",
+  "cpu_nms_roi_align_check": true,
+  "checkpoint_sha256": "2cbbd46259851bad0052b418464cd866097e0e01bb60ae368b213ab040960650",
+  "state_dict_missing": [],
+  "state_dict_extra": [],
+  "state_dict_mismatched": [],
+  "parameters": 1073745214,
+  "image": "<WORKSPACE>/work/model_compatibility/eva01/vendor/bus.jpg",
+  "image_sha256": "fb4914d123d97c440cd127ef0e98d4bdc68cd88e2683657528928b4a34014e16",
+  "source_hw": [
+    640,
+    640
+  ],
+  "first_full_detector_s": 17.55510495800263,
+  "stage_seconds": {
+    "backbone": 13.212977000002866,
+    "proposal_generator": 0.19305508300021756,
+    "roi_heads": 4.122025874996325
+  },
+  "detection_count": 12,
+  "has_masks": true,
+  "mask_shape": [
+    12,
+    640,
+    640
+  ],
+  "soft_nms_tested": false,
+  "unavailable_calls": [],
+  "process_peak_rss_mib": 4660.65625,
+  "host_verified": {
+    "cpu": "Apple M2 Pro",
+    "ram_bytes": 17179869184,
+    "macos": "27.2.1",
+    "python": "3.12.0"
+  },
+  "outer_time_wrapper_note": "Python 모델 검사는 completed. /usr/bin/time -l은 sandbox의 sysctl kern.clockrate 접근 거부로 외부 종료코드1을 반환해 전체 계측값이 누락됨. 이 래퍼 오류를 모델 실행 실패로 해석하지 않는다.",
+  "peak_rss_note": "macOS 프로세스 ru_maxrss, 압축·페이징을 포함한 시스템 전체 사용량 또는 peak memory footprint가 아님."
+}

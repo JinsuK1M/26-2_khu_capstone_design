@@ -1,0 +1,6 @@
+**/vendor/
+**/models/
+**/inputs/
+**/reports/
+**/transfers/
+*.whl

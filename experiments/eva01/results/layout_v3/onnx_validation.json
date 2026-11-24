@@ -1,0 +1,17 @@
+{
+  "state": "completed",
+  "v2_vs_v3": [
+    {
+      "case": "photo",
+      "max_abs": 0.0,
+      "relative_l2": 0.0
+    },
+    {
+      "case": "seeded_random_normalized_buffer",
+      "max_abs": 0.0,
+      "relative_l2": 0.0
+    }
+  ],
+  "original_pytorch_photo_relative_l2": 3.3253602396143833e-06,
+  "scope": "사진/고정 난수 입력의 ONNX CPU 수치 비교. RKNN 실행 배치/속도/탐지 정확도 검증 아님."
+}
